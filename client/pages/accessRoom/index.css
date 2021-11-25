@@ -1,0 +1,36 @@
+.input-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 10px;
+  margin-top: 10px;
+}
+@media (min-width: 900px) {
+  .input-container {
+    width: 400px;
+    text-align: center;
+    margin: 0 auto;
+  }
+}
+.access-input {
+  width: 100%;
+  padding: 10px;
+  border: solid 2px black;
+  border-radius: 6px;
+}
+.button-container {
+  display: flex;
+  flex-direction: column;
+  padding: 10px;
+}
+@media (min-width: 900px) {
+  .button-container {
+    width: 400px;
+    padding: 0;
+    margin: 0 auto;
+    margin-top: 40px;
+  }
+}
+.content-container {
+  margin-top: 50px;
+}

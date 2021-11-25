@@ -1,0 +1,59 @@
+* {
+  box-sizing: border-box;
+}
+
+.root_container {
+  height: 100vh;
+}
+.waiting-room__header {
+  height: 100px;
+  display: flex;
+  justify-content: space-between;
+  padding: 10px;
+}
+.userScores_container {
+}
+.users_scores {
+  font-size: 18px;
+  font-family: " Gluten ", cursive;
+  color: white;
+}
+@media (min-width: 900px) {
+  .users_scores {
+    margin-left: 100px;
+  }
+}
+.room-info_container {
+}
+.info {
+  font-size: 18px;
+  font-family: " Gluten ", cursive;
+  color: white;
+}
+@media (min-width: 900px) {
+  .info {
+    margin-right: 100px;
+  }
+}
+.text-field {
+  text-align: center;
+  margin-top: 100px;
+}
+@media (min-width: 900px) {
+  .text-field {
+    margin-top: 200px;
+  }
+}
+.text-field_content {
+  color: white;
+  font-family: " Gluten ", cursive;
+  font-size: 35px;
+}
+.hands-waiting-room {
+  margin-top: 120px;
+}
+@media (min-width: 900px) {
+  .hands-waiting-room {
+    margin-top: 100px;
+  }
+}

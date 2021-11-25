@@ -1,0 +1,23 @@
+* {
+  box-sizing: border-box;
+}
+.input__label {
+  color: white;
+  font-size: 20px;
+  font-family: "Gluten", cursive;
+  margin-bottom: 5px;
+}
+.input_container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 10px;
+  margin-top: 10px;
+}
+.newGame_input {
+  width: 100%;
+  padding: 10px;
+  display: block;
+  border-radius: 5px;
+  border: none;
+}

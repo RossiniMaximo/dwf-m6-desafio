@@ -1,0 +1,62 @@
+*{
+    box-sizing: border-box;
+}
+body{
+    margin : 0 ;
+}
+.container{
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+.title{
+    font-family: 'Gluten', cursive;
+    color : white;
+    margin-left : 20px;
+    text-align : center;
+}
+@media(min-width:960px){
+    .title{
+        margin-top : 50px
+    }
+}
+.timer-container{
+    font-family: 'Gluten', cursive;
+    color : white;
+    width : 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+@media(min-width:960px){
+    .timer-container{
+        margin-top : 20px;
+    }
+}
+
+.your-move{
+    color : white;
+    font-family: 'Gluten', cursive;
+    margin : 0 auto;
+}
+
+.move-receptor{
+    font-family: 'Gluten', cursive; 
+    color : white;
+    margin : 0 auto;
+    font-size : 22px;
+    margin-top : 22px;
+}
+.hands-container{
+    display : flex; 
+    flex-direction: column;
+    align-items: center;
+    margin-top : 130px 
+}
+@media(min-width : 960px){
+    .hands-container{
+        margin-top: 0
+    }
+}
+

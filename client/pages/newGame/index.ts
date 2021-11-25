@@ -1,0 +1,41 @@
+import { state } from "../../state";
+export function initNewGamePage(params) {
+  state.setState(state.data);
+  const cs = state.getState();
+  const div = document.createElement("div");
+  div.className = "container-homepage";
+  div.innerHTML = `
+        <div  class="title-container">
+            <h1 class="piedra">Piedra</h1>
+            <span class="papel">Papel <span class="o-word">ó</span></span>
+            <span class="tijera">Tijera</span>
+        </div>
+        <form class="input_container">
+            <label class="input__label">Tu nombre</label>
+            <input type="text" name ="newGame_input" class="newGame_input"/>
+            <div class="b-container">
+                <button id="accessRoom-id">Empezar</button>
+            </div>
+        </form>
+        <div class="container-hands">
+            <rps-hands class="hola"></rps-hands>
+        </div>
+    `;
+
+  const formEl = div.querySelector(".input_container");
+  console.log(formEl);
+  formEl.addEventListener("submit", (e) => {
+    e.preventDefault();
+    const target = e.target as any;
+    console.log(target);
+    const nameValue = target["newGame_input"].value;
+    console.log(nameValue);
+    if (nameValue != "") {
+      cs.userName = nameValue;
+      state.setState(cs);
+    }
+    params.goTo("/waitingRoom");
+  });
+
+  return div;
+}

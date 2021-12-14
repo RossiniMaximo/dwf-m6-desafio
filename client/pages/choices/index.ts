@@ -4,6 +4,7 @@ const papelURL = require("url:../../images/papel.png");
 const tijerasURL = require("url:../../images/tijera.png");
 
 export function initChoices(params) {
+  const cs = state.getState();
   const div = document.createElement("div");
   div.className = "container-choices";
   div.innerHTML = `
@@ -16,6 +17,7 @@ export function initChoices(params) {
     `;
 
   const playerimgEl = div.querySelector("#player-move");
+  const upperHand = div.querySelector("#computer-move");
   console.log(playerimgEl);
 
   const style = document.createElement("style");
@@ -25,29 +27,62 @@ export function initChoices(params) {
         }
     `;
 
-  if (state.data.currentGame.playerMove == "piedra") {
-    playerimgEl.src = piedraURL;
-  }
-  if (state.data.currentGame.playerMove == "papel") {
-    playerimgEl.src = papelURL;
-  }
-  if (state.data.currentGame.playerMove == "tijeras") {
-    playerimgEl.src = tijerasURL;
-  }
-  if (state.data.currentGame.playerMove == "") {
-    playerimgEl.className = "no-hand";
-  }
-  const botimgEl = div.querySelector("#computer-move");
+  if (cs.imPlayer1) {
+    if (cs.currentGame.player2Move == "piedra") {
+      upperHand.src = piedraURL;
+    }
+    if (cs.currentGame.player2Move == "papel") {
+      upperHand.src = papelURL;
+    }
+    if (cs.currentGame.player2Move == "tijeras") {
+      upperHand.src = tijerasURL;
+    }
+    if (cs.currentGame.player2Move == "") {
+      upperHand.className = "no-hand";
+    }
 
-  if (state.data.currentGame.computerMove == "piedra") {
-    botimgEl.src = piedraURL;
-    botimgEl.setAttribute("src", piedraURL);
+    if (cs.currentGame.playerMove == "piedra") {
+      playerimgEl.src = piedraURL;
+    }
+    if (cs.currentGame.playerMove == "papel") {
+      playerimgEl.src = papelURL;
+    }
+    if (cs.currentGame.playerMove == "tijeras") {
+      playerimgEl.src = tijerasURL;
+    }
+    if (cs.currentGame.playerMove == "") {
+      playerimgEl.className = "no-hand";
+    } else {
+      if (cs.currentGame.playerMove == "piedra") {
+        upperHand.src = piedraURL;
+      }
+      if (cs.currentGame.playerMove == "papel") {
+        upperHand.src = papelURL;
+      }
+      if (cs.currentGame.playerMove == "tijeras") {
+        upperHand.src = tijerasURL;
+      }
+      if (cs.currentGame.playerMove == "") {
+        upperHand.className = "no-hand";
+      }
+      if (cs.currentGame.player2Move == "piedra") {
+        playerimgEl.src = piedraURL;
+      }
+      if (cs.currentGame.player2Move == "papel") {
+        playerimgEl.src = papelURL;
+      }
+      if (cs.currentGame.player2Move == "tijeras") {
+        playerimgEl.src = tijerasURL;
+      }
+      if (cs.currentGame.player2Move == "") {
+        playerimgEl.className = "no-hand";
+      }
+    }
   }
-  if (state.data.currentGame.computerMove == "papel") {
-    botimgEl.src = papelURL;
-  }
-  if (state.data.currentGame.computerMove == "tijeras") {
-    botimgEl.src = tijerasURL;
+  if (cs.imPlayer1 == "true") {
+    state.setPlayerMoveInDb();
+  } else {
+    state.setPlayer2MoveInDb();
   }
 
   function goToResultsPage() {

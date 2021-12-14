@@ -1,6 +1,6 @@
 import { state } from "../../state";
 export function initHomePage(params) {
-  state.setState(state.data);
+  const cs = state.getState();
   const div = document.createElement("div");
   div.className = "container-homepage";
   div.innerHTML = `
@@ -21,7 +21,13 @@ export function initHomePage(params) {
     `;
   const buttonEl = div.querySelector("#button-id");
   buttonEl.addEventListener("click", (e) => {
-    params.goTo("/newGame");
+    if (cs.userName) {
+      state.askNewRoom(() => {
+        params.goTo("/waitingRoom");
+      });
+    } else {
+      params.goTo("/newGame");
+    }
   });
   const accessButtonEl = div.querySelector("#accessRoom-id");
   accessButtonEl.addEventListener("click", (e) => {

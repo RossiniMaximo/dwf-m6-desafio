@@ -35,6 +35,11 @@
     margin-right: 100px;
   }
 }
+.room_id__text {
+  color: white;
+  font-family: " Gluten ", cursive;
+  font-size: 18px;
+}
 .text-field {
   text-align: center;
   margin-top: 100px;
@@ -55,5 +60,20 @@
 @media (min-width: 900px) {
   .hands-waiting-room {
     margin-top: 100px;
+  }
+}
+.move-page {
+  width: 200px;
+  padding: 10px;
+  border: solid 2px;
+  border-radius: 4px;
+  background-color: purple;
+  color: white;
+  font-family: "Gluten", cursive;
+  font-size: 14px;
+}
+@media (min-width: 960px) {
+  .move-page {
+    width: 300px;
   }
 }

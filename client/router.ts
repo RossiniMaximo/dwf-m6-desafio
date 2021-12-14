@@ -14,6 +14,10 @@ import { initSignUpPage } from "./pages/signup";
 export function initRouter(container: Element) {
   const routes = [
     {
+      path: /\//,
+      component: initHomePage,
+    },
+    {
       path: /\/home/,
       component: initHomePage,
     },
@@ -74,15 +78,15 @@ export function initRouter(container: Element) {
   if (location.pathname == "/") {
     goTo("/signup");
   }
-  if (location.pathname == "/desafio-apx/") {
+  /* if (location.pathname == "/desafio-apx/") {
     goTo("/signup");
-  } else {
-    handleRoute(location.pathname);
-  }
+  } else { */
+  handleRoute(location.pathname);
+
   window.onpopstate = function () {
     handleRoute(location.pathname);
   };
-  if (location.host.includes("github.io")) {
+  /*  if (location.host.includes("github.io")) {
     goTo("/desafio-apx");
-  }
+  } */
 }

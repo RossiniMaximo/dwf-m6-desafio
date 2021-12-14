@@ -1,85 +1,81 @@
-*{
-    box-sizing: border-box;
+* {
+  box-sizing: border-box;
 }
-body{
+body {
 }
 
 /* Centered text */
 .result-text {
-    font-size: 25px;
-    font-family: 'Gluten', cursive;
-    left: 0;
-    position:absolute;
-    text-align:center;
-    top: 80px;
-    width: 100%;
-    color: white  ;
+  font-size: 25px;
+  font-family: "Gluten", cursive;
+  left: 0;
+  position: absolute;
+  text-align: center;
+  top: 80px;
+  width: 100%;
+  color: white;
 }
 
-.result-img{
-    position: relative;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
+.result-img {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 }
-.img{
-        height: 250px;
-}
-
-.content{
-    padding : 20px;
+.img {
+  height: 250px;
 }
 
-.scoreboard-container{
-    text-align: center;
-    border : solid 10px  rgb(128, 0, 128);
-    border-radius: 10px;;
-    max-width :500px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
+.content {
+  padding: 20px;
 }
 
-@media(min-width : 960px){
-    .scoreboard-container{
-        margin : 0 auto;
-    }
+.scoreboard-container {
+  text-align: center;
+  border: solid 10px white;
+  border-radius: 10px;
+  max-width: 500px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 }
 
-
-
-.scoreboard__title{
-    font-family: 'Gluten', cursive;
-    font-size: 35px;
-    color : white;
+@media (min-width: 960px) {
+  .scoreboard-container {
+    margin: 0 auto;
+  }
 }
 
-.scoreboard__player{
-    font-family: 'Gluten', cursive;
-    font-size:25px;
-    color : white;
-    text-align: center;
-   
+.scoreboard__title {
+  font-family: "Gluten", cursive;
+  font-size: 35px;
+  color: white;
 }
 
-.scoreboard__computer{
-    font-family: 'Gluten', cursive;
-    font-size:25px;
-    color : white;
-    text-align: center;
-    
+.scoreboard__player {
+  font-family: "Gluten", cursive;
+  font-size: 25px;
+  color: white;
+  text-align: center;
 }
 
-.butt-container{
-    margin-top: 30px;
-    max-width: 500px;
+.scoreboard__computer {
+  font-family: "Gluten", cursive;
+  font-size: 25px;
+  color: white;
+  text-align: center;
 }
 
-@media(min-width:960px){
-    .butt-container{
-        margin : 0 auto;
-        margin-top : 20px;
-    }
+.butt-container {
+  margin-top: 30px;
+  max-width: 500px;
+}
+
+@media (min-width: 960px) {
+  .butt-container {
+    margin: 0 auto;
+    margin-top: 20px;
+  }
 }

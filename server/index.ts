@@ -6,7 +6,7 @@ import * as cors from "cors";
 const app = express();
 app.use(cors());
 app.use(express.json());
-const port = process.env.PORT || 3000;
+const port = process.env.PORT || 3001;
 
 const usersCollection = firestore.collection("users");
 const roomsCollection = firestore.collection("rooms");
@@ -41,9 +41,9 @@ app.post("/signup", function (req, res) {
 // Este me autentica ante la db
 
 app.post("/auth", (req, res) => {
-  const { name } = req.body;
+  const { userName } = req.body;
   usersCollection
-    .where("name", "==", name)
+    .where("userName", "==", userName)
     .get()
     .then((userDocument) => {
       if (userDocument) {
@@ -63,6 +63,7 @@ app.post("/auth", (req, res) => {
 
 app.post("/rooms", function (req, res) {
   const { userId } = req.body;
+  const { userName } = req.body;
   usersCollection
     .doc(userId.toString())
     .get()
@@ -71,7 +72,24 @@ app.post("/rooms", function (req, res) {
         const roomReference = rtdb.ref("rooms/" + nanoid());
         roomReference
           .set({
-            messages: ([] = []),
+            player1: {
+              userId,
+              userName,
+              score: 0,
+              ready: "",
+              move: "",
+              win: "",
+              playAgain: "",
+            },
+            player2: {
+              userName: "",
+              player2Id: "",
+              score: 0,
+              move: "",
+              ready: "",
+              win: "",
+              playAgain: "",
+            },
             owner: userId,
           })
           .then((rtdbResponse) => {
@@ -81,6 +99,7 @@ app.post("/rooms", function (req, res) {
               .doc(simpleRoomId.toString())
               .set({
                 rtdbRoomId: longRoomId,
+                owner: userId,
               })
               .then(() => {
                 res.json({
@@ -96,11 +115,64 @@ app.post("/rooms", function (req, res) {
     });
 });
 
+// Tengo que crear el endpoint para el player1(listo)
+//  y sus métodos en el estado
+
+app.post("/rooms/:rtdbRoomId/player1", function (req, res) {
+  const { rtdbRoomId } = req.params;
+  const { ready } = req.body;
+  const { move } = req.body;
+  const { win } = req.body;
+  const { score } = req.body;
+  const { playAgain } = req.body;
+  const roomRef = rtdb.ref("/rooms/" + rtdbRoomId + "/player1");
+  roomRef.update(
+    {
+      ready,
+      move,
+      win,
+      score,
+      playAgain,
+    },
+    () => {
+      res.status(200).json("player1 properties has been updated!");
+    }
+  );
+});
+// Este endpoint modifica las propiedades del player 2 creadas previamente en cada room.
+
+app.post("/rooms/:rtdbRoomId/player2", function (req, res) {
+  const { rtdbRoomId } = req.params;
+  const { userName } = req.body;
+  const { player2Id } = req.body;
+  const { ready } = req.body;
+  const { move } = req.body;
+  const { win } = req.body;
+  const { score } = req.body;
+  const { playAgain } = req.body;
+  const roomRef = rtdb.ref("/rooms/" + rtdbRoomId + "/player2");
+
+  roomRef.update(
+    {
+      userName,
+      player2Id,
+      ready,
+      move,
+      win,
+      score,
+      playAgain,
+    },
+    () => {
+      res.status(200).json("player2 properties has been updated!");
+    }
+  );
+});
+
 // Este me deja acceder a los rooms usando el userId y el roomId
 
 app.get("/rooms/:roomId", function (req, res) {
-  const { userId } = req.query;
   const { roomId } = req.params;
+  const { userId } = req.query;
   usersCollection
     .doc(userId.toString())
     .get()

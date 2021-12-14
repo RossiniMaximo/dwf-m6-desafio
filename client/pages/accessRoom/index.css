@@ -34,3 +34,18 @@
 .content-container {
   margin-top: 50px;
 }
+.enter-button {
+  width: 100%;
+  padding: 10px;
+  border: solid 2px;
+  border-radius: 4px;
+  background-color: purple;
+  color: white;
+  font-family: "Gluten", cursive;
+  font-size: 14px;
+}
+@media (min-width: 960px) {
+  .enter-button {
+    width: 400px;
+  }
+}

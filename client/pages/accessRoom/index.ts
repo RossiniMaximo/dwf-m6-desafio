@@ -1,7 +1,6 @@
 import { nanoid } from "nanoid";
 import { state } from "../../state";
 export function initAccessRoom(params) {
-  state.setState(state.data);
   const cs = state.getState();
   const div = document.createElement("div");
   div.className = "container-homepage";
@@ -19,7 +18,7 @@ export function initAccessRoom(params) {
               <input type="text" class="access-input" name="room-id" placeholder="Ingrese el código aquí"/>
           </div>
           <div class="button-container">
-              <button id="button-id">Ingresar a una sala</button>
+              <button id="button-id" class="enter-button">Ingresar a una sala</button>
           </div>
         </form>
     `;
@@ -34,9 +33,14 @@ export function initAccessRoom(params) {
     const roomIdVal = target["room-id"].value;
     console.log(roomIdVal);
     if (nameVal != "" && roomIdVal != "") {
-      cs.userName = nameVal;
+      cs.player2Name = nameVal;
       cs.roomId = roomIdVal;
+      cs.imPlayer2 = "true";
       state.setState(cs);
+      state.signInPlayer2(() => {
+        state.accessToRoomPlayer2();
+      });
+      state.setPlayer2NameAndId();
       params.goTo("/rules");
     }
   });

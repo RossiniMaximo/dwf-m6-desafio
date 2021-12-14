@@ -62,13 +62,17 @@ body {
   margin-right: 50px;
 }
 .container-hands {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  margin-top: 40px;
+  margin-top: 110px;
+  margin-left: 45px;
 }
 @media (min-width: 960px) {
   .container-hands {
-    margin-top: 70px;
+    margin-top: 30px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: absolute;
+    bottom: 0;
+    left: 450px;
   }
 }

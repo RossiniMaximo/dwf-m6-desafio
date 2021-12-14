@@ -1,7 +1,8 @@
 import { state } from "../../state";
 export function initNewGamePage(params) {
-  state.setState(state.data);
+  /* state.setState(state.data); */
   const cs = state.getState();
+  cs.imPlayer2 == "";
   const div = document.createElement("div");
   div.className = "container-homepage";
   div.innerHTML = `
@@ -14,7 +15,7 @@ export function initNewGamePage(params) {
             <label class="input__label">Tu nombre</label>
             <input type="text" name ="newGame_input" class="newGame_input"/>
             <div class="b-container">
-                <button id="accessRoom-id">Empezar</button>
+                <button class="start-button"id="accessRoom-id">Empezar</button>
             </div>
         </form>
         <div class="container-hands">
@@ -27,14 +28,20 @@ export function initNewGamePage(params) {
   formEl.addEventListener("submit", (e) => {
     e.preventDefault();
     const target = e.target as any;
-    console.log(target);
+    /*    console.log(target); */
     const nameValue = target["newGame_input"].value;
-    console.log(nameValue);
+    /* console.log(nameValue); */
     if (nameValue != "") {
       cs.userName = nameValue;
+      state.signIn(() => {
+        state.askNewRoom(() => {
+          cs.imPlayer1 = "true";
+          state.accessToRoom();
+        });
+      });
       state.setState(cs);
+      params.goTo("/waitingRoom");
     }
-    params.goTo("/waitingRoom");
   });
 
   return div;

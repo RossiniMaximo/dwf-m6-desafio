@@ -21,8 +21,7 @@ export function initWaitingRoomPage(params) {
         <div class="text-field">
         <p class="room_id__text">Comparti el código con tu advesario : ${`<p class="shareCode users_scores">${cs.roomId}</p>`}</p>
             <p class="text-field_content">Esperando a que el adversario presione ¡Jugar!...</p>
-            <button class="move-page">Connect to the room</button>
-            </div>
+        </div>
     </div>
   `;
 
@@ -42,19 +41,6 @@ export function initWaitingRoomPage(params) {
       params.goTo("/ingame");
     }
   });
-
-  /* const buttonElement = div.querySelector(".move-page");
-  buttonElement.addEventListener("click", (e) => {
-    if (cs.imPlayer1 == "true") {
-      state.suscribe(() => {
-        if (cs.readyPlayer2 === "true") {
-          params.goTo("/ingame");
-        } else {
-          console.log("false");
-        }
-      });
-    }
-  }); */
 
   return div;
 }

@@ -2,6 +2,7 @@ import * as express from "express";
 import { nanoid } from "nanoid";
 import { firestore, rtdb } from "./db";
 import * as cors from "cors";
+import * as path from "path";
 
 const app = express();
 app.use(cors());
@@ -193,7 +194,10 @@ app.get("/rooms/:roomId", function (req, res) {
       }
     });
 });
-
+/* const rutaRelativa = path.resolve(path.join(__dirname, "/dist/index.html")); */
+app.get("*", (req, res) => {
+  res.sendFile(path.resolve(path.join(__dirname, "../dist/index.html")));
+});
 app.listen(port, () => {
   console.log("app listening port: " + port);
 });

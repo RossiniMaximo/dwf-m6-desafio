@@ -4,6 +4,7 @@ var express = require("express");
 var nanoid_1 = require("nanoid");
 var db_1 = require("./db");
 var cors = require("cors");
+var path = require("path");
 var app = express();
 app.use(cors());
 app.use(express.json());
@@ -178,6 +179,10 @@ app.get("/rooms/:roomId", function (req, res) {
             });
         }
     });
+});
+/* const rutaRelativa = path.resolve(path.join(__dirname, "/dist/index.html")); */
+app.get("*", function (req, res) {
+    res.sendFile(path.resolve(path.join(__dirname, "../dist/index.html")));
 });
 app.listen(port, function () {
     console.log("app listening port: " + port);

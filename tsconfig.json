@@ -5,5 +5,5 @@
     "resolveJsonModule": true,
     "allowJs": true
   },
-  "files": ["./server/index.ts"]
+  "files": ["./client/index.ts"]
 }

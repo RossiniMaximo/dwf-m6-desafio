@@ -165,7 +165,7 @@ const state = {
   },
   signUp(callback?) {
     const cs = this.getState();
-    fetch(API_URL + "/signup", {
+    fetch("/signup", {
       method: "post",
       headers: {
         "content-type": "application/json",
@@ -188,7 +188,7 @@ const state = {
   signIn(callback?) {
     const cs = this.getState();
     if (cs.userName) {
-      fetch(API_URL + "/auth", {
+      fetch("/auth", {
         method: "post",
         headers: {
           "content-type": "application/json",
@@ -212,7 +212,7 @@ const state = {
   signInPlayer2(callback?) {
     const cs = this.getState();
     if (cs.player2Name) {
-      fetch(API_URL + "/auth", {
+      fetch("/auth", {
         method: "post",
         headers: {
           "content-type": "application/json",
@@ -236,7 +236,7 @@ const state = {
   askNewRoom(callback?) {
     const cs = this.getState();
     if (cs.userId || cs.player2Id) {
-      fetch(API_URL + "/rooms", {
+      fetch("/rooms", {
         method: "post",
         headers: {
           "Content-type": "application/json",
@@ -262,7 +262,7 @@ const state = {
   },
   accessToRoom(callback?) {
     const cs = this.getState();
-    fetch(API_URL + "/rooms/" + cs.roomId + "?userId=" + cs.userId)
+    fetch("/rooms/" + cs.roomId + "?userId=" + cs.userId)
       .then((res) => {
         return res.json();
       })
@@ -278,7 +278,7 @@ const state = {
   },
   accessToRoomPlayer2(callback?) {
     const cs = this.getState();
-    fetch(API_URL + "/rooms/" + cs.roomId + "?userId=" + cs.player2Id)
+    fetch("/rooms/" + cs.roomId + "?userId=" + cs.player2Id)
       .then((res) => {
         return res.json();
       })
@@ -330,7 +330,7 @@ const state = {
     const cs = this.getState();
     console.log("LDLALASDLASDLASD : ", cs.rtdbRoomdId);
 
-    fetch(API_URL + "/rooms/" + cs.rtdbRoomId + "/player2", {
+    fetch("/rooms/" + cs.rtdbRoomId + "/player2", {
       method: "post",
       headers: {
         "content-type": "application/json",
@@ -348,7 +348,7 @@ const state = {
   },
   setPlayer2MoveInDb() {
     const cs = this.getState();
-    fetch(API_URL + "/rooms/" + cs.rtdbRoomId + "/player2", {
+    fetch("/rooms/" + cs.rtdbRoomId + "/player2", {
       method: "post",
       headers: {
         "content-type": "application/json",
@@ -368,7 +368,7 @@ const state = {
     const cs = this.getState();
     console.log("soy el roomId del setMove1", cs.rtdbRoomId);
 
-    fetch(API_URL + "/rooms/" + cs.rtdbRoomId + "/player1", {
+    fetch("/rooms/" + cs.rtdbRoomId + "/player1", {
       method: "post",
       headers: {
         "content-type": "application/json",
@@ -386,7 +386,7 @@ const state = {
   },
   setReadyPlayer2(callback?) {
     const cs = this.getState();
-    fetch(API_URL + "/rooms/" + cs.rtdbRoomId + "/player2", {
+    fetch("/rooms/" + cs.rtdbRoomId + "/player2", {
       method: "post",
       headers: {
         "content-type": "application/json",
@@ -407,7 +407,7 @@ const state = {
   },
   setReadyPlayer(callback?) {
     const cs = this.getState();
-    fetch(API_URL + "/rooms/" + cs.rtdbRoomId + "/player1", {
+    fetch("/rooms/" + cs.rtdbRoomId + "/player1", {
       method: "post",
       headers: {
         "content-type": "application/json",
@@ -428,7 +428,7 @@ const state = {
   },
   setWinPlayer2() {
     const cs = this.getState();
-    fetch(API_URL + "/rooms/" + cs.rtdbRoomId + "/player2", {
+    fetch("/rooms/" + cs.rtdbRoomId + "/player2", {
       method: "post",
       headers: {
         "content-type": "application/json",
@@ -446,7 +446,7 @@ const state = {
   },
   setWinPlayer() {
     const cs = this.getState();
-    fetch(API_URL + "/rooms/" + cs.rtdbRoomId + "/player1", {
+    fetch("/rooms/" + cs.rtdbRoomId + "/player1", {
       method: "post",
       headers: {
         "content-type": "application/json",
@@ -464,7 +464,7 @@ const state = {
   },
   setPlayer2ScoreinDb() {
     const cs = this.getState();
-    fetch(API_URL + "/rooms/" + cs.rtdbRoomId + "/player2", {
+    fetch("/rooms/" + cs.rtdbRoomId + "/player2", {
       method: "post",
       headers: {
         "content-type": "application/json",
@@ -482,7 +482,7 @@ const state = {
   },
   setPlayerScoreinDb() {
     const cs = this.getState();
-    fetch(API_URL + "/rooms/" + cs.rtdbRoomId + "/player1", {
+    fetch("/rooms/" + cs.rtdbRoomId + "/player1", {
       method: "post",
       headers: {
         "content-type": "application/json",
@@ -500,7 +500,7 @@ const state = {
   },
   setPlayerPlayAgain() {
     const cs = this.getState();
-    fetch(API_URL + "/rooms/" + cs.rtdbRoomId + "/player1", {
+    fetch("/rooms/" + cs.rtdbRoomId + "/player1", {
       method: "post",
       headers: {
         "content-type": "application/json",
@@ -518,7 +518,7 @@ const state = {
   },
   setPlayer2PlayAgain() {
     const cs = this.getState();
-    fetch(API_URL + "/rooms/" + cs.rtdbRoomId + "/player2", {
+    fetch("/rooms/" + cs.rtdbRoomId + "/player2", {
       method: "post",
       headers: {
         "content-type": "application/json",

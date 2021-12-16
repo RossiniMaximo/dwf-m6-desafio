@@ -64,6 +64,7 @@ const state = {
   },
   initStorage() {
     const localdata = localStorage.getItem("user-data");
+    console.log("soy la localdata : ", localdata);
     if (localdata == "null" || null) {
       return this.setState({
         currentGame: {

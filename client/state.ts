@@ -54,7 +54,7 @@ const state = {
     return this.data;
   },
   setState(newState) {
-    /*  localStorage.setItem("user-data", JSON.stringify(newState)); */
+     localStorage.setItem("user-data", JSON.stringify(newState));
     this.data = newState;
     for (const cb of this.listeners) {
       cb();

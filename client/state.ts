@@ -65,13 +65,32 @@ const state = {
     console.log("soy la localdata : ", localdata);
     if (localdata == "null" || null) {
       return this.setState({
-        currentGame: {
-          playerMove: "",
-          computerMove: "",
+        data: {
+          currentGame: {
+            playerMove: "",
+            player2Move: "",
+          },
+          imInPageRules: "",
+          imInPageWaitingRoom: "",
+          imInResultPage: "",
+          userName: "",
+          player2Name: "",
+          userId: "",
+          player2Id: "",
+          playAgainPlayer1: "",
+          playAgainPlayer2: "",
+          player2winner: "",
+          player1Winner: "",
+          imPlayer2: "",
+          imPlayer1: "",
+          readyPlayer1: "",
+          readyPlayer2: "",
+          roomId: "",
+          rtdbRoomId: "",
+          winner: "",
+          playerScore: 0,
+          player2Score: 0,
         },
-        winner: "",
-        playerScore: 0,
-        computerScore: 0,
       });
     } else {
       return state.setState(JSON.parse(localdata));

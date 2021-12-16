@@ -58,8 +58,6 @@ const state = {
     for (const cb of this.listeners) {
       cb();
     }
-    console.log("soy los listeners del estado : ", this.listeners);
-
     console.log("soy el state he cambiado", newState);
   },
   initStorage() {

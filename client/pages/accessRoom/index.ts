@@ -37,18 +37,12 @@ export function initAccessRoom(params) {
       cs.roomId = roomIdVal;
       cs.imPlayer2 = "true";
       state.setState(cs);
-      state.signInPlayer2(() => {
-        state.accessToRoomPlayer2();
-      });
-      state.setPlayer2NameAndId();
-      params.goTo("/rules");
     }
-  });
-
-  /* const buttonEl = div.querySelector("#button-id");
-  buttonEl.addEventListener("click", (e) => {
+    state.signInPlayer2(() => {
+      state.accessToRoomPlayer2(() => state.setPlayer2NameAndId(()=>{state.setReadyPlayer2()}));
+    });
     params.goTo("/rules");
-  }); */
+  });
 
   return div;
 }

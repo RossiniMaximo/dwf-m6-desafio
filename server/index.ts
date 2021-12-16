@@ -186,6 +186,7 @@ app.get("/rooms/:roomId", function (req, res) {
           .then((roomDocumentSnapshot) => {
             const data = roomDocumentSnapshot.data();
             res.json(data);
+            console.log("DATAAAAA:");
           });
       } else {
         res.status(404).json({

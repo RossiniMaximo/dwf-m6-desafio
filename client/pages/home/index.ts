@@ -20,8 +20,11 @@ export function initHomePage(params) {
         </div>
     `;
   const buttonEl = div.querySelector("#button-id");
+  cs.userName = cs.signName;
   buttonEl.addEventListener("click", (e) => {
-    if (cs.userName) {
+    cs.imPlayer1 = "true";
+    state.setState(cs);
+    if (cs.signName) {
       state.askNewRoom(() => {
         params.goTo("/waitingRoom");
       });

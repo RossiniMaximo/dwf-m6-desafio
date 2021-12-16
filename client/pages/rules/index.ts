@@ -1,4 +1,4 @@
-import { textSpanContainsTextSpan } from "typescript";
+import { STATUS_CODES } from "http";
 import { state } from "../../state";
 export function initRules(params) {
   const div = document.createElement("div");
@@ -14,14 +14,15 @@ export function initRules(params) {
     `;
   const cs = state.getState();
   cs.imInPageRules = "true";
-  state.suscribe(() => {
-    state.setReadyPlayer2();
-  });
-  state.suscribe(() => {
-    if (cs.readyPlayer1 == "ready" && cs.imInPageRules == "true") {
-      params.goTo("/ingame");
+
+  /* Aca entra en recursión */
+  state.suscribe(()=>{
+    if (cs.readyPlayer1 == "ready") {
+      if(cs.imInPageRules == "true"){
+        params.goTo("/ingame");
+      }
     }
-  });
+  })
 
   return div;
 }

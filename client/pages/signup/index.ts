@@ -30,9 +30,11 @@ export function initSignUpPage(params) {
     const nameValue = target.nombre.value;
     console.log(nameValue);
     if (nameValue != "") {
-      cs.userName = nameValue;
+      cs.signName = nameValue;
       state.setState(cs);
       state.signUp();
+    }
+    if (nameValue != "") {
       params.goTo("/home");
     }
   });

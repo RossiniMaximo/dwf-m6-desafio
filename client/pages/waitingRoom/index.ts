@@ -25,6 +25,9 @@ export function initWaitingRoomPage(params) {
     </div>
   `;
 
+  console.log("rtdbRoomId:", cs.rtdbRoomId);
+  state.listenPlayer2Values();
+  state.accessToRoom();
   state.suscribe(() => {
     const myScoreEl = div.querySelector(".my_score");
     myScoreEl.textContent = cs.playerScore;
@@ -34,11 +37,14 @@ export function initWaitingRoomPage(params) {
     shareCodeEl.textContent = cs.roomId;
     state.setReadyPlayer();
   });
-  state.listenPlayer2Values();
   cs.imInPageWaitingRoom = "true";
+  console.log("Es aca la cosa : ", cs.readyPlayer2);
+
   state.suscribe(() => {
-    if (cs.readyPlayer2 == "true" && cs.imInPageWaitingRoom == "true") {
-      params.goTo("/ingame");
+    if (cs.readyPlayer2 == "true") {
+      if (cs.imInPageWaitingRoom == "true") {
+        params.goTo("/ingame");
+      }
     }
   });
 

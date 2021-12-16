@@ -5,7 +5,7 @@ type Game = {
   playerMove: Move;
   computerMove: Move;
 };
-const API_URL = process.env.PORT || "http://localhost:3001";
+const API_URL = "http://localhost:3001";
 const state = {
   data: {
     currentGame: {
@@ -17,6 +17,7 @@ const state = {
     imInResultPage: "",
     userName: "",
     player2Name: "",
+    signName: "",
     userId: "",
     player2Id: "",
     playAgainPlayer1: "",
@@ -53,12 +54,13 @@ const state = {
     return this.data;
   },
   setState(newState) {
-    localStorage.setItem("user-data", JSON.stringify(newState));
+    /*  localStorage.setItem("user-data", JSON.stringify(newState)); */
     this.data = newState;
     for (const cb of this.listeners) {
       cb();
     }
     console.log("soy el state he cambiado", newState);
+    console.log("soy los listeners del estado :", this.listeners);
   },
   initStorage() {
     const localdata = localStorage.getItem("user-data");
@@ -189,7 +191,7 @@ const state = {
         "content-type": "application/json",
       },
       body: JSON.stringify({
-        userName: cs.userName,
+        userName: cs.signName,
       }),
     })
       .then((res) => {
@@ -227,7 +229,7 @@ const state = {
         });
     }
   },
-  signInPlayer2(callback?) {
+  signInPlayer2(callback) {
     const cs = this.getState();
     if (cs.player2Name) {
       fetch(API_URL + "/auth", {
@@ -245,9 +247,7 @@ const state = {
         .then((data) => {
           cs.player2Id = data.id;
           this.setState(cs);
-          if (callback) {
-            callback();
-          }
+          callback();
         });
     }
   },
@@ -280,15 +280,15 @@ const state = {
   },
   accessToRoom(callback?) {
     const cs = this.getState();
-    fetch("API_URL +/rooms/" + cs.roomId + "?userId=" + cs.userId)
+    fetch(API_URL + "/rooms/" + cs.roomId + "?userId=" + cs.userId)
       .then((res) => {
         return res.json();
       })
       .then((data) => {
         console.log("soy la data del accesToRoom", data);
         cs.rtdbRoomId = data.rtdbRoomId;
-        this.setState(cs);
         this.listenPlayer2Values();
+        this.setState(cs);
         if (callback) {
           callback();
         }
@@ -344,7 +344,7 @@ const state = {
       this.setState(cs);
     });
   },
-  setPlayer2NameAndId() {
+  setPlayer2NameAndId(callback?) {
     const cs = this.getState();
     console.log("LDLALASDLASDLASD : ", cs.rtdbRoomdId);
 
@@ -363,6 +363,9 @@ const state = {
         score: cs.player2Score || "",
       }),
     });
+    if(callback){
+      callback()
+    }
   },
   setPlayer2MoveInDb() {
     const cs = this.getState();
@@ -404,6 +407,8 @@ const state = {
   },
   setReadyPlayer2(callback?) {
     const cs = this.getState();
+    console.log(cs.rtdbRoomId);
+    /* ACA ENTRA EN RECURSIÓN */
     fetch(API_URL + "/rooms/" + cs.rtdbRoomId + "/player2", {
       method: "post",
       headers: {

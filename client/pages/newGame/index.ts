@@ -2,7 +2,7 @@ import { state } from "../../state";
 export function initNewGamePage(params) {
   /* state.setState(state.data); */
   const cs = state.getState();
-  cs.imPlayer2 == "";
+  cs.imPlayer2 = "";
   const div = document.createElement("div");
   div.className = "container-homepage";
   div.innerHTML = `
@@ -33,15 +33,12 @@ export function initNewGamePage(params) {
     /* console.log(nameValue); */
     if (nameValue != "") {
       cs.userName = nameValue;
-      state.signIn(() => {
-        state.askNewRoom(() => {
-          cs.imPlayer1 = "true";
-          state.accessToRoom();
-        });
-      });
-      state.setState(cs);
+      state.signIn();
+      state.askNewRoom();
       params.goTo("/waitingRoom");
     }
+    cs.imPlayer1 = "true";
+    state.setState(cs);
   });
 
   return div;

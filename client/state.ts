@@ -54,7 +54,7 @@ const state = {
     return this.data;
   },
   setState(newState) {
-     localStorage.setItem("user-data", JSON.stringify(newState));
+    localStorage.setItem("user-data", JSON.stringify(newState));
     this.data = newState;
     for (const cb of this.listeners) {
       cb();
@@ -289,6 +289,7 @@ const state = {
         cs.rtdbRoomId = data.rtdbRoomId;
         this.listenPlayer2Values();
         this.setState(cs);
+        this.initStorage();
         if (callback) {
           callback();
         }
@@ -304,6 +305,7 @@ const state = {
         cs.rtdbRoomId = data.rtdbRoomId;
         this.setState(cs);
         this.listenPlayer1Values();
+        this.initStorage();
         if (callback) {
           callback();
         }
@@ -363,8 +365,8 @@ const state = {
         score: cs.player2Score || "",
       }),
     });
-    if(callback){
-      callback()
+    if (callback) {
+      callback();
     }
   },
   setPlayer2MoveInDb() {

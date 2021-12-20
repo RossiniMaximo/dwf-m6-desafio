@@ -6,23 +6,21 @@ const tieURL = require("url:../../images/tie-game.jpg");
 export function initResultPage(params) {
   const currentState = state.getState();
   state.result();
-
-  if (currentState.winner == "player2" && currentState.imPlayer2) {
+  if (currentState.winner == "player2" && currentState.imPlayer2 == "true") {
     state.scoreCounter("player2");
     state.setPlayer2ScoreinDb();
     state.setWinPlayer2();
   }
-  if (currentState.winner == "player2" && currentState.imPlayer1) {
+  if (currentState.winner == "player2" && currentState.imPlayer1 == "true") {
     state.scoreCounter("player2");
   }
-
-  if (currentState.winner == "player1" && currentState.imPlayer1) {
+  if (currentState.winner == "player1" && currentState.imPlayer1 == "true") {
     state.scoreCounter("player");
     state.setPlayerScoreinDb();
     state.setWinPlayer();
   }
-  if (currentState.winner == "player1" && currentState.imPlayer2) {
-    state.scoreCounter("player1");
+  if (currentState.winner == "player1" && currentState.imPlayer2 == "true") {
+    state.scoreCounter("player");
   }
 
   const div = document.createElement("div");
@@ -44,16 +42,18 @@ export function initResultPage(params) {
     `;
 
   const pEl = div.querySelector(".scoreboard__player");
-  if (currentState.imPlayer1) {
+  if (currentState.imPlayer1 == "true") {
     pEl.textContent = "Vos :" + currentState.playerScore;
   } else {
     pEl.textContent = "Vos :" + currentState.player2Score;
   }
   const secondPEl = div.querySelector(".scoreboard__computer");
-  if (currentState.imPlayer1) {
+  if (currentState.imPlayer1 == "true") {
     secondPEl.textContent =
       currentState.player2Name + ":" + currentState.player2Score;
-  } else {
+  }
+
+  if (currentState.imPlayer2 == "true") {
     secondPEl.textContent =
       currentState.userName + ":" + currentState.playerScore;
   }

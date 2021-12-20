@@ -23,8 +23,8 @@ export function initGamePage(params) {
 <rps-hands></rps-hands>
 </div>
 `;
+  const pEl = div.querySelector(".move-receptor");
   state.suscribe(() => {
-    const pEl = div.querySelector(".move-receptor");
     const pElContent = (pEl.textContent = moveValue);
   });
   if (cs.imPlayer2 == "true") {

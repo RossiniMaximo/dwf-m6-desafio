@@ -20,8 +20,8 @@ export function initHomePage(params) {
         </div>
     `;
   const buttonEl = div.querySelector("#button-id");
-  cs.userName = cs.signName;
   buttonEl.addEventListener("click", (e) => {
+    cs.userName = cs.signName;
     cs.imPlayer1 = "true";
     state.setState(cs);
     if (cs.signName) {

@@ -33,8 +33,6 @@ export function initSignUpPage(params) {
       cs.signName = nameValue;
       state.setState(cs);
       state.signUp();
-    }
-    if (nameValue != "") {
       params.goTo("/home");
     }
   });

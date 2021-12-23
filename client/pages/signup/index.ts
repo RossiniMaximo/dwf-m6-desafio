@@ -108,6 +108,7 @@ export function initSignUpPage(params) {
                 color : white;
             }
         `;
+
   div.appendChild(stylesheet);
   return div;
 }

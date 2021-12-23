@@ -19,10 +19,12 @@ export function initHomePage(params) {
             <rps-hands class="hola"></rps-hands>
         </div>
     `;
+
   const buttonEl = div.querySelector("#button-id");
   buttonEl.addEventListener("click", (e) => {
     cs.userName = cs.signName;
     cs.imPlayer1 = "true";
+    /* aca se inicia el local storage */
     state.setState(cs);
     if (cs.signName) {
       state.askNewRoom(() => {
@@ -36,6 +38,5 @@ export function initHomePage(params) {
   accessButtonEl.addEventListener("click", (e) => {
     params.goTo("/accessRoom");
   });
-
   return div;
 }

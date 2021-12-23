@@ -39,7 +39,11 @@ export function initAccessRoom(params) {
       state.setState(cs);
     }
     state.signInPlayer2(() => {
-      state.accessToRoomPlayer2(() => state.setPlayer2NameAndId(()=>{state.setReadyPlayer2()}));
+      state.accessToRoomPlayer2(() =>
+        state.setPlayer2NameAndId(() => {
+          state.setReadyPlayer2();
+        })
+      );
     });
     params.goTo("/rules");
   });

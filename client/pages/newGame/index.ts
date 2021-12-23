@@ -24,22 +24,21 @@ export function initNewGamePage(params) {
     `;
 
   const formEl = div.querySelector(".input_container");
-  console.log(formEl);
   formEl.addEventListener("submit", (e) => {
     e.preventDefault();
     const target = e.target as any;
-    /*    console.log(target); */
     const nameValue = target["newGame_input"].value;
-    /* console.log(nameValue); */
     if (nameValue != "") {
       cs.userName = nameValue;
-      state.signIn();
-      state.askNewRoom();
+      state.signIn(() => {
+        state.askNewRoom(() => {
+          state.accessToRoom();
+        });
+      });
+      cs.imPlayer1 = "true";
+      state.setState(cs);
       params.goTo("/waitingRoom");
     }
-    cs.imPlayer1 = "true";
-    state.setState(cs);
   });
-
   return div;
 }

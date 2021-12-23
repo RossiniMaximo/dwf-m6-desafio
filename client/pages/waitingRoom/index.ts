@@ -24,10 +24,9 @@ export function initWaitingRoomPage(params) {
         </div>
     </div>
   `;
-
-  console.log("rtdbRoomId:", cs.rtdbRoomId);
-  state.listenPlayer2Values();
   state.accessToRoom();
+  state.listenPlayer2Values();
+  console.log("soy el rtdbRoomId en la page waitingRoom:", cs.rtdbRoomId);
   state.suscribe(() => {
     const myScoreEl = div.querySelector(".my_score");
     myScoreEl.textContent = cs.playerScore;
@@ -38,8 +37,6 @@ export function initWaitingRoomPage(params) {
     state.setReadyPlayer();
   });
   cs.imInPageWaitingRoom = "true";
-  console.log("Es aca la cosa : ", cs.readyPlayer2);
-
   state.suscribe(() => {
     if (cs.readyPlayer2 == "true") {
       if (cs.imInPageWaitingRoom == "true") {
@@ -47,6 +44,6 @@ export function initWaitingRoomPage(params) {
       }
     }
   });
-
+  state.setState(cs);
   return div;
 }

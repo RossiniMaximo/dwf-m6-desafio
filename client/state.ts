@@ -1,5 +1,6 @@
 import { rtdb } from "./db";
 import { map } from "lodash";
+import { storage } from "firebase-admin";
 type Move = "tijeras" | "papel" | "piedra";
 type Game = {
   playerMove: Move;
@@ -54,49 +55,24 @@ const state = {
     return this.data;
   },
   setState(newState) {
-    localStorage.setItem("user-data", JSON.stringify(newState));
     this.data = newState;
+    const cs = this.getState();
     for (const cb of this.listeners) {
       cb();
     }
+    sessionStorage.setItem("data", JSON.stringify(cs));
     console.log("soy el state he cambiado", newState);
-    console.log("soy los listeners del estado :", this.listeners);
   },
   initStorage() {
-    const localdata = localStorage.getItem("user-data");
-    console.log("soy la localdata : ", localdata);
-    if (localdata == "null" || null) {
-      return this.setState({
-        data: {
-          currentGame: {
-            playerMove: "",
-            player2Move: "",
-          },
-          imInPageRules: "",
-          imInPageWaitingRoom: "",
-          imInResultPage: "",
-          userName: "",
-          player2Name: "",
-          userId: "",
-          player2Id: "",
-          playAgainPlayer1: "",
-          playAgainPlayer2: "",
-          player2winner: "",
-          player1Winner: "",
-          imPlayer2: "",
-          imPlayer1: "",
-          readyPlayer1: "",
-          readyPlayer2: "",
-          roomId: "",
-          rtdbRoomId: "",
-          winner: "",
-          playerScore: 0,
-          player2Score: 0,
-        },
-      });
-    } else {
-      return state.setState(JSON.parse(localdata));
-    }
+    const localdata = sessionStorage.getItem("data");
+    const parsedData = JSON.parse(localdata);
+    console.log("soy la parsedData : ", parsedData);
+    const cs = this.getState();
+    cs.userName = parsedData.userName;
+    cs.player2Name = parsedData.player2Name;
+    cs.playerScore = parsedData.playerScore;
+    cs.player2Score = parsedData.player2Score;
+    state.setState(cs);
   },
   suscribe(callback: (any) => any) {
     this.listeners.push(callback);
@@ -112,7 +88,6 @@ const state = {
   },
   result() {
     const cs = this.getState();
-
     const ganePiedra =
       cs.currentGame.playerMove == "piedra" &&
       cs.currentGame.player2Move == "tijeras";
@@ -185,9 +160,7 @@ const state = {
   },
   signUp(callback?) {
     const cs = this.getState();
-    console.log("entre al signup", cs.signName);
-
-    fetch(/* API_URL +  */ "/signup", {
+    fetch(API_URL + "/signup", {
       method: "post",
       headers: {
         "content-type": "application/json",
@@ -210,7 +183,7 @@ const state = {
   signIn(callback?) {
     const cs = this.getState();
     if (cs.userName) {
-      fetch(/* API_URL +  */ "/auth", {
+      fetch(API_URL + "/auth", {
         method: "post",
         headers: {
           "content-type": "application/json",
@@ -234,7 +207,7 @@ const state = {
   signInPlayer2(callback) {
     const cs = this.getState();
     if (cs.player2Name) {
-      fetch(/* API_URL +  */ "/auth", {
+      fetch(API_URL + "/auth", {
         method: "post",
         headers: {
           "content-type": "application/json",
@@ -256,7 +229,7 @@ const state = {
   askNewRoom(callback?) {
     const cs = this.getState();
     if (cs.userId || cs.player2Id) {
-      fetch(/* API_URL +  */ "/rooms", {
+      fetch(API_URL + "/rooms", {
         method: "post",
         headers: {
           "Content-type": "application/json",
@@ -282,16 +255,16 @@ const state = {
   },
   accessToRoom(callback?) {
     const cs = this.getState();
-    fetch(/* API_URL +  */ "/rooms/" + cs.roomId + "?userId=" + cs.userId)
+    fetch(API_URL + "/rooms/" + cs.roomId + "?userId=" + cs.userId)
       .then((res) => {
         return res.json();
       })
       .then((data) => {
         console.log("soy la data del accesToRoom", data);
         cs.rtdbRoomId = data.rtdbRoomId;
+        this.initStorage();
         this.listenPlayer2Values();
         this.setState(cs);
-        /* this.initStorage(); */
         if (callback) {
           callback();
         }
@@ -299,15 +272,15 @@ const state = {
   },
   accessToRoomPlayer2(callback?) {
     const cs = this.getState();
-    fetch(/* API_URL +  */ "/rooms/" + cs.roomId + "?userId=" + cs.player2Id)
+    fetch(API_URL + "/rooms/" + cs.roomId + "?userId=" + cs.player2Id)
       .then((res) => {
         return res.json();
       })
       .then((data) => {
         cs.rtdbRoomId = data.rtdbRoomId;
-        this.setState(cs);
+        this.initStorage();
         this.listenPlayer1Values();
-        /* this.initStorage(); */
+        this.setState(cs);
         if (callback) {
           callback();
         }
@@ -350,9 +323,9 @@ const state = {
   },
   setPlayer2NameAndId(callback?) {
     const cs = this.getState();
-    console.log("LDLALASDLASDLASD : ", cs.rtdbRoomdId);
+    console.log("RtdbRoomId setPlayer2NameAndId Method : ", cs.rtdbRoomdId);
 
-    fetch(/* API_URL +  */ "/rooms/" + cs.rtdbRoomId + "/player2", {
+    fetch(API_URL + "/rooms/" + cs.rtdbRoomId + "/player2", {
       method: "post",
       headers: {
         "content-type": "application/json",
@@ -373,7 +346,7 @@ const state = {
   },
   setPlayer2MoveInDb() {
     const cs = this.getState();
-    fetch(/* API_URL +  */ "/rooms/" + cs.rtdbRoomId + "/player2", {
+    fetch(API_URL + "/rooms/" + cs.rtdbRoomId + "/player2", {
       method: "post",
       headers: {
         "content-type": "application/json",
@@ -393,7 +366,7 @@ const state = {
     const cs = this.getState();
     console.log("soy el roomId del setMove1", cs.rtdbRoomId);
 
-    fetch(/* API_URL +  */ "/rooms/" + cs.rtdbRoomId + "/player1", {
+    fetch(API_URL + "/rooms/" + cs.rtdbRoomId + "/player1", {
       method: "post",
       headers: {
         "content-type": "application/json",
@@ -412,8 +385,7 @@ const state = {
   setReadyPlayer2(callback?) {
     const cs = this.getState();
     console.log(cs.rtdbRoomId);
-    /* ACA ENTRA EN RECURSIÓN */
-    fetch(/* API_URL +  */ "/rooms/" + cs.rtdbRoomId + "/player2", {
+    fetch(API_URL + "/rooms/" + cs.rtdbRoomId + "/player2", {
       method: "post",
       headers: {
         "content-type": "application/json",
@@ -434,7 +406,7 @@ const state = {
   },
   setReadyPlayer(callback?) {
     const cs = this.getState();
-    fetch(/* API_URL +  */ "/rooms/" + cs.rtdbRoomId + "/player1", {
+    fetch(API_URL + "/rooms/" + cs.rtdbRoomId + "/player1", {
       method: "post",
       headers: {
         "content-type": "application/json",
@@ -455,7 +427,7 @@ const state = {
   },
   setWinPlayer2() {
     const cs = this.getState();
-    fetch(/* API_URL +  */ "/rooms/" + cs.rtdbRoomId + "/player2", {
+    fetch(API_URL + "/rooms/" + cs.rtdbRoomId + "/player2", {
       method: "post",
       headers: {
         "content-type": "application/json",
@@ -473,7 +445,7 @@ const state = {
   },
   setWinPlayer() {
     const cs = this.getState();
-    fetch(/* API_URL +  */ "/rooms/" + cs.rtdbRoomId + "/player1", {
+    fetch(API_URL + "/rooms/" + cs.rtdbRoomId + "/player1", {
       method: "post",
       headers: {
         "content-type": "application/json",
@@ -491,7 +463,7 @@ const state = {
   },
   setPlayer2ScoreinDb() {
     const cs = this.getState();
-    fetch(/* API_URL +  */ "/rooms/" + cs.rtdbRoomId + "/player2", {
+    fetch(API_URL + "/rooms/" + cs.rtdbRoomId + "/player2", {
       method: "post",
       headers: {
         "content-type": "application/json",
@@ -509,7 +481,7 @@ const state = {
   },
   setPlayerScoreinDb() {
     const cs = this.getState();
-    fetch(/* API_URL +  */ "/rooms/" + cs.rtdbRoomId + "/player1", {
+    fetch(API_URL + "/rooms/" + cs.rtdbRoomId + "/player1", {
       method: "post",
       headers: {
         "content-type": "application/json",
@@ -527,7 +499,7 @@ const state = {
   },
   setPlayerPlayAgain() {
     const cs = this.getState();
-    fetch(/* API_URL +  */ "/rooms/" + cs.rtdbRoomId + "/player1", {
+    fetch(API_URL + "/rooms/" + cs.rtdbRoomId + "/player1", {
       method: "post",
       headers: {
         "content-type": "application/json",
@@ -545,7 +517,7 @@ const state = {
   },
   setPlayer2PlayAgain() {
     const cs = this.getState();
-    fetch(/* API_URL +  */ "/rooms/" + cs.rtdbRoomId + "/player2", {
+    fetch(API_URL + "/rooms/" + cs.rtdbRoomId + "/player2", {
       method: "post",
       headers: {
         "content-type": "application/json",

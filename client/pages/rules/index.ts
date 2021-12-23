@@ -16,13 +16,12 @@ export function initRules(params) {
   cs.imInPageRules = "true";
 
   /* Aca entra en recursión */
-  state.suscribe(()=>{
+  state.suscribe(() => {
     if (cs.readyPlayer1 == "ready") {
-      if(cs.imInPageRules == "true"){
+      if (cs.imInPageRules == "true") {
         params.goTo("/ingame");
       }
     }
-  })
-
+  });
   return div;
 }

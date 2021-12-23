@@ -114,6 +114,5 @@ export function initResultPage(params) {
       params.goTo("/ingame");
     }
   });
-
   return div;
 }

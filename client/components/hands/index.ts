@@ -15,7 +15,6 @@ class Hands extends HTMLElement {
     const lastState = state.getState();
     lastState.playerMove = "";
     lastState.player2Move = "";
-    lastState.computerMove = "";
     const piedraId = this.shadow.querySelector("#piedra");
     piedraId.addEventListener("click", () => {
       piedraId.classList.remove("blur");

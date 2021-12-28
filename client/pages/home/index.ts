@@ -19,13 +19,12 @@ export function initHomePage(params) {
             <rps-hands class="hola"></rps-hands>
         </div>
     `;
-
+  /* Entra en recursión si ejecuto el initStorage aca */
+  /* state.initStorage() */
   const buttonEl = div.querySelector("#button-id");
   buttonEl.addEventListener("click", (e) => {
     cs.userName = cs.signName;
     cs.imPlayer1 = "true";
-    /* aca se inicia el local storage */
-    state.setState(cs);
     if (cs.signName) {
       state.askNewRoom(() => {
         params.goTo("/waitingRoom");

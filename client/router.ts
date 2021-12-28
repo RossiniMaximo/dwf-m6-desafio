@@ -86,6 +86,3 @@ export function initRouter(container: Element) {
     handleRoute(location.pathname);
   };
 }
-window.onload = function () {
-  state.initStorage();
-};

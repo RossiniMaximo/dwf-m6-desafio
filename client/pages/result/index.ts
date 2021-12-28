@@ -33,7 +33,7 @@ export function initResultPage(params) {
     <div class="scoreboard-container">
     <h4 class="scoreboard__title">Puntaje</h4>
     <p class="scoreboard__player"></p>
-    <p class="scoreboard__computer">Máquina:${currentState.computerScore}</p>
+    <p class="scoreboard__computer">Máquina:${currentState.player2Score}</p>
     </div>
     <div class="butt-container">
     <my-button id="play-again-button">Volver a jugar</my-button>
@@ -95,24 +95,24 @@ export function initResultPage(params) {
 
     if (currentState.imPlayer1 == "true") {
       currentState.playAgainPlayer1 = "true";
-      state.setState(currentState);
       state.setPlayerPlayAgain();
+      state.listenPlayer2Values();
     }
     if (currentState.imPlayer2 == "true") {
       currentState.playAgainPlayer2 = "true";
-      state.setState(currentState);
       state.setPlayer2PlayAgain();
+      state.listenPlayer1Values();
     }
+    state.suscribe(() => {
+      if (
+        currentState.playAgainPlayer1 == "true" &&
+        currentState.playAgainPlayer2 == "true" &&
+        currentState.imInResultPage == "true"
+      ) {
+        params.goTo("/ingame");
+      }
+    });
   });
-  /* Entra en recursión */
-  state.suscribe(() => {
-    if (
-      currentState.playAgainPlayer1 == "true" &&
-      currentState.playAgainPlayer2 == "true" &&
-      currentState.imInResultPage == "true"
-    ) {
-      params.goTo("/ingame");
-    }
-  });
+
   return div;
 }

@@ -36,7 +36,6 @@ export function initNewGamePage(params) {
         });
       });
       cs.imPlayer1 = "true";
-      state.setState(cs);
       params.goTo("/waitingRoom");
     }
   });

@@ -25,7 +25,6 @@ export function initWaitingRoomPage(params) {
     </div>
   `;
   state.accessToRoom();
-  state.listenPlayer2Values();
   console.log("soy el rtdbRoomId en la page waitingRoom:", cs.rtdbRoomId);
   state.suscribe(() => {
     const myScoreEl = div.querySelector(".my_score");
@@ -44,6 +43,5 @@ export function initWaitingRoomPage(params) {
       }
     }
   });
-  state.setState(cs);
   return div;
 }

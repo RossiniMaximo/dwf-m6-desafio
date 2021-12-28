@@ -64,8 +64,7 @@ app.post("/auth", (req, res) => {
 // este me da el id simple
 
 app.post("/rooms", function (req, res) {
-  const { userId } = req.body;
-  const { userName } = req.body;
+  const { userId, userName } = req.body;
   usersCollection
     .doc(userId.toString())
     .get()
@@ -122,11 +121,7 @@ app.post("/rooms", function (req, res) {
 
 app.post("/rooms/:rtdbRoomId/player1", function (req, res) {
   const { rtdbRoomId } = req.params;
-  const { ready } = req.body;
-  const { move } = req.body;
-  const { win } = req.body;
-  const { score } = req.body;
-  const { playAgain } = req.body;
+  const { ready, move, win, score, playAgain } = req.body;
   const roomRef = rtdb.ref("/rooms/" + rtdbRoomId + "/player1");
   roomRef.update(
     {
@@ -145,13 +140,7 @@ app.post("/rooms/:rtdbRoomId/player1", function (req, res) {
 
 app.post("/rooms/:rtdbRoomId/player2", function (req, res) {
   const { rtdbRoomId } = req.params;
-  const { userName } = req.body;
-  const { player2Id } = req.body;
-  const { ready } = req.body;
-  const { move } = req.body;
-  const { win } = req.body;
-  const { score } = req.body;
-  const { playAgain } = req.body;
+  const { userName, player2Id, ready, move, win, score, playAgain } = req.body;
   const roomRef = rtdb.ref("/rooms/" + rtdbRoomId + "/player2");
 
   roomRef.update(
